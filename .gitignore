@@ -1,0 +1,8 @@
+*.py[cod]
+/static/
+/media/
+.idea/
+__pycache__
+venv/
+env/
+settings_local.py
