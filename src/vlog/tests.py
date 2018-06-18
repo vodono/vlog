@@ -18,6 +18,9 @@ class TransliterationTest(TestCase):
         cat = None
 
         if cat_form.is_valid():
+            # import ipdb
+            # ipdb.set_trace()
+
             cat = cat_form.save()
 
         self.assertEqual(cat.slug, 'sport')

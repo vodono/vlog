@@ -18,7 +18,7 @@ class Publication(BaseModel):
         max_length=150,
         unique=True,
         blank=True,
-        verbose_name=_('Slug')
+        verbose_name=_('Slug'),
     )
 
     def __str__(self):
