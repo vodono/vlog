@@ -19,6 +19,7 @@ class Publication(BaseModel):
         unique=True,
         blank=True,
         verbose_name=_('Slug'),
+        help_text="Don't change the field manually!"
     )
 
     def __str__(self):
@@ -29,6 +30,17 @@ class Publication(BaseModel):
 
 
 class Category(Publication):
+    image = models.ImageField(
+        null=True,
+        blank=True
+    )
+
+    description = models.CharField(
+        max_length=200,
+        verbose_name=_('Description'),
+        null=True
+    )
+
     author = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         related_name='categories',
@@ -46,10 +58,27 @@ class Category(Publication):
 class Article(Publication):
     description = models.CharField(
         max_length=200,
-        verbose_name=_('Description')
+        verbose_name=_('Description'),
+        null=True
     )
 
     content = RichTextField()
+
+    image = models.ImageField(
+        null=True,
+        blank=True
+    )
+
+    publication_date = models.DateField(
+        verbose_name = _('Publicated'),
+        auto_now = False,
+        null = True,
+        blank = True
+    )
+
+    visible = models.BooleanField(
+        default=False
+    )
 
     author = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
@@ -77,7 +106,8 @@ class Tag(Publication):
     articles = models.ManyToManyField(
         to='Article',
         related_name='tags',
-        verbose_name=_('Articles')
+        verbose_name=_('Articles'),
+        db_table='tag__article'
     )
 
     class Meta:
@@ -99,8 +129,7 @@ class Comment(BaseModel):
         to='Article',
         related_name='comments',
         verbose_name=_('Article'),
-        on_delete=models.SET_NULL,
-        null=True
+        on_delete=models.CASCADE
     )
 
     text = models.TextField(
