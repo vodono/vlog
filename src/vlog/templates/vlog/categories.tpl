@@ -3,10 +3,8 @@
 {% block title %}Категории{% endblock %}
 
 {% block content %}
-    <h1>Влог</h1>
-    <br>
-
-    <h2>Все категории:</h2>
+    <h2>Список категорий влога:</h2>
+    <hr><hr>
     {% for category in categories %}
         <h3><a href="/categories/{{ category.slug }}/">{{ category.title }}</a></h3>
         <hr>

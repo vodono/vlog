@@ -10,6 +10,17 @@
         {% block navbar %}
             {% include 'core/navbar.tpl' %}
         {% endblock %}
+
+        {% load django_bootstrap_breadcrumbs %}
+        {% block breadcrumbs %}
+            {% clear_breadcrumbs %}
+            {% breadcrumb "Home" "/" %}
+        {% endblock %}
+
+        {% block content_breadcrumbs %}
+            {% render_breadcrumbs %}
+        {% endblock %}
+
         <br>
         <div class="container-fluid">
             {% block content %}

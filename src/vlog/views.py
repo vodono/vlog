@@ -1,8 +1,8 @@
 from core.views import BaseView
-from django.shortcuts import render_to_response
-from django.views.generic import TemplateView
 from vlog.models import Category, Article, Tag
 from django.db.models import Count
+from django.shortcuts import render_to_response
+from django.views.generic import TemplateView
 
 
 class IndexView(BaseView):
@@ -60,3 +60,63 @@ class CategoryView(BaseView):
 
         return self.render_to_response(context)
 
+class ArticlesView(BaseView):
+    template_name = 'vlog/articles.tpl'
+
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        articles = Article.objects.all()\
+            .annotate(comments_qty=Count('comments'))\
+            .order_by('-comments_qty')
+
+        context.update({'articles': articles})
+
+        return self.render_to_response(context)
+
+class ArticleView(BaseView):
+    template_name = 'vlog/article.tpl'
+
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        article = Article.objects.get(slug=kwargs.get('article_slug'))
+        context.update({'article': article})
+
+        return self.render_to_response(context)
+
+class TagsView(BaseView):
+    template_name = 'vlog/tags.tpl'
+
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        tags = Tag.objects.all()\
+            .annotate(articles_qty=Count('articles'))\
+            .order_by('-articles_qty')
+        context.update({'tags': tags})
+
+        articles_by_tag = Article.objects.values('tags', 'title', 'slug')\
+            .annotate(comments_qty=Count('comments'))\
+            .order_by('tags', '-comments_qty')
+        context.update({'articles_by_tag': articles_by_tag})
+
+
+        return self.render_to_response(context)
+
+class TagView(BaseView):
+    template_name = 'vlog/tag.tpl'
+
+    def get(self, request, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        tag = Tag.objects.get(slug=kwargs.get('tag_slug'))
+        context.update({'tag': tag})
+
+        articles = Article.objects \
+            .filter(tags__slug=kwargs.get('tag_slug')) \
+            .annotate(articles_comments=Count('comments')) \
+            .order_by('-articles_comments')
+        context.update({'articles': articles})
+
+        return self.render_to_response(context)
