@@ -1,8 +1,7 @@
 from core.views import BaseView
 from vlog.models import Category, Article, Tag
 from django.db.models import Count
-from django.shortcuts import render_to_response
-from django.views.generic import TemplateView
+from django.core.paginator import Paginator
 
 
 class IndexView(BaseView):
@@ -52,11 +51,24 @@ class CategoryView(BaseView):
         category = Category.objects.get(slug=kwargs.get('category_slug'))
         context.update({'category': category})
 
-        top_articles = Article.objects \
+        top_2_articles = Article.objects \
+            .filter(category__slug=kwargs.get('category_slug')) \
+            .annotate(articles_comments=Count('comments')) \
+            .order_by('-articles_comments')[:2]
+        context.update({'top_2_articles': top_2_articles})
+
+        articles = Article.objects \
             .filter(category__slug=kwargs.get('category_slug')) \
             .annotate(articles_comments=Count('comments')) \
             .order_by('-articles_comments')
-        context.update({'top_articles': top_articles})
+
+        paginator = Paginator(articles, 3)
+        page = request.GET.get('page')
+        articles_page = paginator.get_page(page)
+        # import ipdb
+        # ipdb.set_trace()
+        context.update({'articles_page': articles_page})
+        # context.update({'articles': articles})
 
         return self.render_to_response(context)
 
