@@ -2,6 +2,12 @@
 
 {% block title %}Категория: {{ category.title }}{% endblock %}
 
+{% block breadcrumbs %}
+    {{ super() }}
+    / <a href="/categories/">Категории</a>
+    / <a href="/categories/{{ category.slug }}"> {{ category.title }} </a>
+{% endblock %}
+
 {% block content %}
     <h2>Категория: {{ category.title }}</h2>
     <hr><hr>

@@ -2,6 +2,10 @@
 
 {% block title %}Теги{% endblock %}
 
+{% block breadcrumbs %}
+    {{ super() }} / <a href="/tags/">Список тегов</a>
+{% endblock %}
+
 {% block content %}
     <h2>Список тегов влога:</h2>
     <hr><hr>

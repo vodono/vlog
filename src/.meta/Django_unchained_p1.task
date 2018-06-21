@@ -1,0 +1,101 @@
+Django Unchained. Part 1
+
+Simple blog.
+
+Models:
+    User
+
+    Category
+        fields:
+            - title [unique] (max 50 symbols)
+            - image
+            - description (optional: max 200 symbols)
+            - created
+            - updated
+        relations:
+            User: many to one (e.g.: User.categories | Category.author)
+
+    Article
+        fields:
+            - title [unique] (max 100 symbols)
+            - description (max 200 symbols)
+            - content
+            - image
+            - created
+            - updated
+            - publication_date
+            - visible (bool)
+        relations:
+            Category: many to one (e.g.: Category.articles | Article.category)
+            User: many to one (e.g.: User.articles | Article.author)
+
+    Tag
+        fields:
+            - title [unique] (max 50 symbols)
+            - created
+            - updated
+        relations:
+            Article: many to many (e.g.: Article.tags | Tag.articles)
+
+
+    Comment
+        fields:
+            - content (max 1000 symbols)
+            - created
+        relations:
+            User: many to one (e.g.: User.comments | Comment.author)
+            Article: many to one (e.g.: Article.comments | Comment.article)
+
+Views:
+    Each view:
+        - nav bar (Home, Categories, Tags, Login/Logout)
+        - breadcrumbs
+        - footer (copyrights, cookie disclamer, user agreement)
+    
+    1. IndexView
+        - blog title
+        - list of 3 most populated categories
+        - list of 10 most commented articles
+        - list of 10 most populated tags
+    
+    2. CategoriesView
+        - list of categories with category (order by articles quantity)
+
+    3. CategoryView
+        - category title (with 2 most commented articles and articles description)
+        - list of articles (order by comments quantity)
+        - pagination
+
+    4. ArticlesView
+        - list of articles (order by comments quantity)
+
+    5. ArticleView
+        - article title
+        - article image
+        - article content
+
+    6. TagView
+        - list of tags (order by articles quantity) with 3 most commented articles
+
+    7. TagView
+        - list of articles with category (order by comments quantity)
+
+Urls:
+    /
+    /categories/
+    /categories/<category_title>/
+    /categories/<category_title>/articles/
+    /categories/<category_title>/articles/<article_title>/
+    /tags/
+    /tags/<tag_title>/
+
+    Requirements:
+    1. HRU only
+    2. Transliterated urls
+        e.g.:
+            category.title = 'спорт'
+            articler.title = 'Финал Лиги Чемпионов все'
+
+            url => /categories/sport/articles/final-ligi-chempionov-vse/
+
+

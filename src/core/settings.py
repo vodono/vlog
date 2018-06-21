@@ -41,9 +41,10 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'django_jinja',
+    'django_bootstrap_breadcrumbs',
 
     'core',
-    'vlog'
+    'vlog',
 ]
 
 
@@ -56,9 +57,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'core.urls'
-
 TEMPLATES = [
 {
         "BACKEND": "django_jinja.backend.Jinja2",
@@ -72,6 +70,7 @@ TEMPLATES = [
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
                 "django.template.context_processors.debug",
+                "django.template.context_processors.request",
                 "django.template.context_processors.i18n",
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
@@ -103,13 +102,15 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+ROOT_URLCONF = 'core.urls'
+
 
 WSGI_APPLICATION = 'core.wsgi.application'
 

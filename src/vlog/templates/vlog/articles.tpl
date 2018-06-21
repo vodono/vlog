@@ -2,6 +2,10 @@
 
 {% block title %}Статьи{% endblock %}
 
+{% block breadcrumbs %}
+    {{ super() }} / <a href="/articles/">Статьи</a>
+{% endblock %}
+
 {% block content %}
     <h2>Список статей влога:</h2>
     <hr><hr>

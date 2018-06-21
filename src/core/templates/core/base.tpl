@@ -7,25 +7,30 @@
         <title>{% block title %}{% endblock %}</title>
     </head>
     <body>
-        {% block navbar %}
-            {% include 'core/navbar.tpl' %}
-        {% endblock %}
+    {% block navbar %}
+    {% include 'core/navbar.tpl' %}
+    {% endblock %}
 
-        {% load django_bootstrap_breadcrumbs %}
-        {% block breadcrumbs %}
-            {% clear_breadcrumbs %}
-            {% breadcrumb "Home" "/" %}
-        {% endblock %}
-
-        {% block content_breadcrumbs %}
-            {% render_breadcrumbs %}
-        {% endblock %}
+    {% block breadcrumbs %}
+        <a href="/">Влог</a>
+    {% endblock %}
 
         <br>
         <div class="container-fluid">
             {% block content %}
             {% endblock %}
         </div>
+        <footer>
+            <style>
+                footer {background: grey}
+            </style>
+            <div class="footer-bg">
+            <div class="copyright">
+                <p><strong>Vlog experimental blog.</strong></p>
+                <p>&copy; Santa</p>
+            </div>
+            </div>
+        </footer>
     </body>
     <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 </html>
