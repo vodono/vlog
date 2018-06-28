@@ -1,9 +1,11 @@
+coverage==4.5.1
 Django==2.0.6
 django-ckeditor==5.5.0
 django-jinja==2.4.1
 ipdb==0.11
 ipython==6.4.0
+mock==2.0.0
 Pillow==5.1.0
 transliterate==1.10.1
 psycopg2-binary==2.7.4
-django-bootstrap-breadcrumbs==0.9.1
+

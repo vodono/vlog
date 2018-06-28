@@ -1,6 +1,5 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
-from vlog import models
 from vlog import forms
 
 
@@ -12,15 +11,12 @@ class TransliterationTest(TestCase):
 
     def test_transliteration(self):
         cat_form = forms.CategoryForm(
-            {'title': 'спорт', 'author': self.user.pk}
+            {'title': 'спорт',
+             'description': 'Все о спорте.',
+             'author': self.user.pk}
         )
 
-        cat = None
-
         if cat_form.is_valid():
-            # import ipdb
-            # ipdb.set_trace()
-
             cat = cat_form.save()
 
         self.assertEqual(cat.slug, 'sport')
@@ -35,7 +31,10 @@ class TransliterationTest(TestCase):
         self.assertEqual(cat.slug, 'test')
 
         cat_form = forms.CategoryForm(
-            {'title': 'Breaking News! Новости.'}, instance=cat
+            {'title': 'Breaking News! Новости.',
+             'description':'Про спорт.',
+             'author': cat.author.id},
+            instance=cat
         )
 
         if cat_form.is_valid():

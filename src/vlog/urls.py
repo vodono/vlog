@@ -1,4 +1,4 @@
-from django.urls import path, re_path
+from django.urls import re_path
 
 from vlog import views
 
@@ -12,7 +12,7 @@ urlpatterns = [
         name='categories'
     ),
     re_path(
-        '^categories/(?P<category_slug>[\w-]+)/$',
+        "^categories/(?P<category_slug>[\w'-]+)/$",
         views.CategoryView.as_view(),
         name='category'
     ),
@@ -22,7 +22,7 @@ urlpatterns = [
         name='articles'
     ),
     re_path(
-        '^articles/(?P<article_slug>[\w-]+)/$',
+        "^articles/(?P<article_slug>[\w'-]+)/$",
         views.ArticleView.as_view(),
         name='article'
     ),
@@ -32,7 +32,7 @@ urlpatterns = [
         name='tags'
     ),
     re_path(
-        '^tags/(?P<tag_slug>[\w-]+)/$',
+        "^tags/(?P<tag_slug>[\w'-]+)/$",
         views.TagView.as_view(),
         name='tag'
     ),

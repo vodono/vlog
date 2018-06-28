@@ -12,7 +12,7 @@
     <h2>{{ article.title }}</h2>
     <hr><br>
 
-    <img src="{{ article.image.url }}"/>
+    <img src="{{ article.image.url }}" alt="Image not found!"/>
     <br>
     {% autoescape off %} {{ article.content }} {% endautoescape %}
     <br>
