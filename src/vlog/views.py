@@ -1,7 +1,9 @@
 from core.views import BaseView
-from vlog.models import Category, Article, Tag
+from vlog.models import Category, Article, Tag, Comment
 from django.db.models import Count
 from django.core.paginator import Paginator
+from rest_framework import generics
+from vlog.serializers import CategorySerializer, ArticleSerializer, TagSerializer
 
 
 class IndexView(BaseView):
@@ -137,3 +139,39 @@ class TagView(BaseView):
         context.update({'articles': articles})
 
         return self.render_to_response(context)
+
+
+class CategoriesList(generics.ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'category_slug'
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class ArticlesList(generics.ListCreateAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+
+class ArticleDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'article_slug'
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+
+class TagsList(generics.ListCreateAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+
+class TagDetail(generics.RetrieveUpdateDestroyAPIView):
+    lookup_field = 'slug'
+    lookup_url_kwarg = 'tag_slug'
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer

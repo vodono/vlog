@@ -1,5 +1,5 @@
 from django.urls import re_path
-
+from rest_framework.urlpatterns import format_suffix_patterns
 from vlog import views
 
 urlpatterns = [
@@ -36,4 +36,34 @@ urlpatterns = [
         views.TagView.as_view(),
         name='tag'
     ),
+    re_path(
+        '^api/v1/categories/$',
+        views.CategoriesList.as_view()
+    ),
+    re_path(
+        "^api/v1/categories/(?P<category_slug>[\w'-]+)/$",
+        views.CategoryDetail.as_view()
+    ),
+    re_path(
+        '^api/v1/articles/$',
+        views.ArticlesList.as_view()
+    ),
+    re_path(
+        "^api/v1/articles/(?P<article_slug>[\w'-]+)/$",
+        views.ArticleDetail.as_view()
+    ),
+    re_path(
+        '^api/v1/tags/$',
+        views.TagsList.as_view()
+    ),
+    re_path(
+        "^api/v1/categories/(?P<article_slug>[\w'-]+)/$",
+        views.ArticleDetail.as_view()
+    ),
+    re_path(
+        "^api/v1/tags/(?P<tag_slug>[\w'-]+)/$",
+        views.TagDetail.as_view()
+    ),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)

@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'django_jinja',
-    'django_bootstrap_breadcrumbs',
+    'rest_framework',
 
     'core',
     'vlog',
@@ -183,3 +183,11 @@ try:
     from .settings_local import *
 except ImportError:
     pass
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
