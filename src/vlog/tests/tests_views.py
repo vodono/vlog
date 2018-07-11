@@ -1,10 +1,6 @@
 from django.test import TestCase, override_settings
-from django.test import Client
-from vlog import views
-from vlog.models import Category, Article, Tag, Comment
 from django.urls import reverse
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 
 
 class ViewsTest(TestCase):

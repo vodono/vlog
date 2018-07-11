@@ -1,11 +1,8 @@
 import re
-
 from django import forms
-
 from ckeditor.widgets import CKEditorWidget
 from transliterate import translit
 from transliterate.exceptions import LanguageDetectionError
-
 from vlog import models
 
 

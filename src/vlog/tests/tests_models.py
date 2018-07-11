@@ -2,14 +2,13 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from vlog import models
 from vlog import forms
-import datetime
+
 
 class ModelsTest(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
             username='user', password='qwerty123'
         )
-        self.test_time = datetime.datetime.now()
 
         self.cat = models.Category.objects.create(
             title='Спорт',
@@ -52,7 +51,6 @@ class ModelsTest(TestCase):
         self.assertEqual(category.title, 'Спорт')
         self.assertEqual(category.slug, 'sport')
         self.assertEqual(str(category), 'Спорт')
-        # self.assertEqual(category.created, self.test_time)
 
     def test_article(self):
         article = models.Article.objects.get(title='Статья')
@@ -64,7 +62,6 @@ class ModelsTest(TestCase):
             article.tags.get(title='Тег').title,
             'Тег'
         )
-        # self.assertEqual(self.art.created, self.test_time)
 
     def test_tag(self):
         tag = models.Tag.objects.get(title='Тег')
